@@ -1,0 +1,1355 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /docs/:
+    get:
+      operationId: listSwaggerSchemas
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/coreapi+json:
+              schema: &id001
+                type: array
+                items: {}
+            application/openapi+json:
+              schema: *id001
+            text/html:
+              schema: *id001
+          description: ''
+  /api/user/detail/{id}:
+    get:
+      operationId: RetrieveUser
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    pattern: ^[\w.@+-]+\Z
+                    maxLength: 150
+                  uri:
+                    type: string
+                    readOnly: true
+                  status_list:
+                    type: string
+                    readOnly: true
+                required:
+                - username
+          description: ''
+  /api/status/list/:
+    get:
+      operationId: listStatus
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+          description: ''
+  /api/status/doc/statusDoc/:
+    get:
+      operationId: listStatus
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        user:
+                          type: integer
+                        content:
+                          type: string
+                          nullable: true
+                        image:
+                          type: string
+                          format: binary
+                          nullable: true
+                      required:
+                      - user
+          description: ''
+    post:
+      operationId: createStatus
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id002
+              properties:
+                user:
+                  type: integer
+                content:
+                  type: string
+                  nullable: true
+                image:
+                  type: string
+                  format: binary
+                  nullable: true
+              required:
+              - user
+          application/x-www-form-urlencoded:
+            schema: *id002
+          multipart/form-data:
+            schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    type: integer
+                  content:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+                required:
+                - user
+          description: ''
+  /api/status/doc/statusDoc/{id}/:
+    get:
+      operationId: retrieveStatus
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this status post.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    type: integer
+                  content:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+                required:
+                - user
+          description: ''
+    put:
+      operationId: updateStatus
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this status post.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id003
+              properties:
+                user:
+                  type: integer
+                content:
+                  type: string
+                  nullable: true
+                image:
+                  type: string
+                  format: binary
+                  nullable: true
+              required:
+              - user
+          application/x-www-form-urlencoded:
+            schema: *id003
+          multipart/form-data:
+            schema: *id003
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    type: integer
+                  content:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+                required:
+                - user
+          description: ''
+    patch:
+      operationId: partial_updateStatus
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this status post.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id004
+              properties:
+                user:
+                  type: integer
+                content:
+                  type: string
+                  nullable: true
+                image:
+                  type: string
+                  format: binary
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id004
+          multipart/form-data:
+            schema: *id004
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    type: integer
+                  content:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+                required:
+                - user
+          description: ''
+    delete:
+      operationId: destroyStatus
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this status post.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/status/genericapiview/:
+    get:
+      operationId: listStatus
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        user:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            username:
+                              type: string
+                              description: Required. 150 characters or fewer. Letters,
+                                digits and @/./+/-/_ only.
+                              pattern: ^[\w.@+-]+\Z
+                              maxLength: 150
+                            uri:
+                              type: string
+                              readOnly: true
+                          required:
+                          - username
+                          type: object
+                          readOnly: true
+                        content:
+                          type: string
+                          nullable: true
+                        uri:
+                          type: string
+                          readOnly: true
+                        image:
+                          type: string
+                          format: binary
+                          nullable: true
+          description: ''
+    post:
+      operationId: createStatus
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id005
+              properties:
+                content:
+                  type: string
+                  nullable: true
+                image:
+                  type: string
+                  format: binary
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id005
+          multipart/form-data:
+            schema: *id005
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      username:
+                        type: string
+                        description: Required. 150 characters or fewer. Letters, digits
+                          and @/./+/-/_ only.
+                        pattern: ^[\w.@+-]+\Z
+                        maxLength: 150
+                      uri:
+                        type: string
+                        readOnly: true
+                    required:
+                    - username
+                    type: object
+                    readOnly: true
+                  content:
+                    type: string
+                    nullable: true
+                  uri:
+                    type: string
+                    readOnly: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+          description: ''
+  /api/status/genericapiview/{id}:
+    get:
+      operationId: retrieveStatus
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this status post.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      username:
+                        type: string
+                        description: Required. 150 characters or fewer. Letters, digits
+                          and @/./+/-/_ only.
+                        pattern: ^[\w.@+-]+\Z
+                        maxLength: 150
+                      uri:
+                        type: string
+                        readOnly: true
+                    required:
+                    - username
+                    type: object
+                    readOnly: true
+                  content:
+                    type: string
+                    nullable: true
+                  uri:
+                    type: string
+                    readOnly: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+          description: ''
+    put:
+      operationId: updateStatus
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this status post.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id006
+              properties:
+                content:
+                  type: string
+                  nullable: true
+                image:
+                  type: string
+                  format: binary
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id006
+          multipart/form-data:
+            schema: *id006
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      username:
+                        type: string
+                        description: Required. 150 characters or fewer. Letters, digits
+                          and @/./+/-/_ only.
+                        pattern: ^[\w.@+-]+\Z
+                        maxLength: 150
+                      uri:
+                        type: string
+                        readOnly: true
+                    required:
+                    - username
+                    type: object
+                    readOnly: true
+                  content:
+                    type: string
+                    nullable: true
+                  uri:
+                    type: string
+                    readOnly: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+          description: ''
+    delete:
+      operationId: destroyStatus
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this status post.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/status/docview/:
+    get:
+      operationId: listStatus
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        user:
+                          type: integer
+                        content:
+                          type: string
+                          nullable: true
+                        image:
+                          type: string
+                          format: binary
+                          nullable: true
+                      required:
+                      - user
+          description: ''
+    post:
+      operationId: createStatus
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id007
+              properties:
+                user:
+                  type: integer
+                content:
+                  type: string
+                  nullable: true
+                image:
+                  type: string
+                  format: binary
+                  nullable: true
+              required:
+              - user
+          application/x-www-form-urlencoded:
+            schema: *id007
+          multipart/form-data:
+            schema: *id007
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    type: integer
+                  content:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+                required:
+                - user
+          description: ''
+  /api/status/docview/{id}:
+    get:
+      operationId: retrieveStatus
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this status post.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    type: integer
+                  content:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+                required:
+                - user
+          description: ''
+    put:
+      operationId: updateStatus
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this status post.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id008
+              properties:
+                user:
+                  type: integer
+                content:
+                  type: string
+                  nullable: true
+                image:
+                  type: string
+                  format: binary
+                  nullable: true
+              required:
+              - user
+          application/x-www-form-urlencoded:
+            schema: *id008
+          multipart/form-data:
+            schema: *id008
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    type: integer
+                  content:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+                required:
+                - user
+          description: ''
+    delete:
+      operationId: destroyStatus
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this status post.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/status/mixinsAPIView/:
+    get:
+      operationId: RetrieveStatus
+      description: ''
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      username:
+                        type: string
+                        description: Required. 150 characters or fewer. Letters, digits
+                          and @/./+/-/_ only.
+                        pattern: ^[\w.@+-]+\Z
+                        maxLength: 150
+                      uri:
+                        type: string
+                        readOnly: true
+                    required:
+                    - username
+                    type: object
+                    readOnly: true
+                  content:
+                    type: string
+                    nullable: true
+                  uri:
+                    type: string
+                    readOnly: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+          description: ''
+    post:
+      operationId: CreateStatus
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id009
+              properties:
+                content:
+                  type: string
+                  nullable: true
+                image:
+                  type: string
+                  format: binary
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id009
+          multipart/form-data:
+            schema: *id009
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      username:
+                        type: string
+                        description: Required. 150 characters or fewer. Letters, digits
+                          and @/./+/-/_ only.
+                        pattern: ^[\w.@+-]+\Z
+                        maxLength: 150
+                      uri:
+                        type: string
+                        readOnly: true
+                    required:
+                    - username
+                    type: object
+                    readOnly: true
+                  content:
+                    type: string
+                    nullable: true
+                  uri:
+                    type: string
+                    readOnly: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+          description: ''
+    put:
+      operationId: UpdateStatus
+      description: ''
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id010
+              properties:
+                content:
+                  type: string
+                  nullable: true
+                image:
+                  type: string
+                  format: binary
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id010
+          multipart/form-data:
+            schema: *id010
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      username:
+                        type: string
+                        description: Required. 150 characters or fewer. Letters, digits
+                          and @/./+/-/_ only.
+                        pattern: ^[\w.@+-]+\Z
+                        maxLength: 150
+                      uri:
+                        type: string
+                        readOnly: true
+                    required:
+                    - username
+                    type: object
+                    readOnly: true
+                  content:
+                    type: string
+                    nullable: true
+                  uri:
+                    type: string
+                    readOnly: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+          description: ''
+    patch:
+      operationId: PartialUpdateStatus
+      description: ''
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id011
+              properties:
+                content:
+                  type: string
+                  nullable: true
+                image:
+                  type: string
+                  format: binary
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id011
+          multipart/form-data:
+            schema: *id011
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      username:
+                        type: string
+                        description: Required. 150 characters or fewer. Letters, digits
+                          and @/./+/-/_ only.
+                        pattern: ^[\w.@+-]+\Z
+                        maxLength: 150
+                      uri:
+                        type: string
+                        readOnly: true
+                    required:
+                    - username
+                    type: object
+                    readOnly: true
+                  content:
+                    type: string
+                    nullable: true
+                  uri:
+                    type: string
+                    readOnly: true
+                  image:
+                    type: string
+                    format: binary
+                    nullable: true
+          description: ''
+    delete:
+      operationId: DestroyStatus
+      description: ''
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/auth/:
+    post:
+      operationId: CreateAuth
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+  /api/auth/register/:
+    post:
+      operationId: CreateRegister
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+  /api/auth/register2/:
+    post:
+      operationId: CreateUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id012
+              properties:
+                username:
+                  type: string
+                  description: Required. 150 characters or fewer. Letters, digits
+                    and @/./+/-/_ only.
+                  pattern: ^[\w.@+-]+\Z
+                  maxLength: 150
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                password:
+                  type: string
+                  writeOnly: true
+                password2:
+                  type: string
+                  writeOnly: true
+              required:
+              - username
+              - password
+              - password2
+          application/x-www-form-urlencoded:
+            schema: *id012
+          multipart/form-data:
+            schema: *id012
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    pattern: ^[\w.@+-]+\Z
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  token:
+                    type: string
+                    readOnly: true
+                  expires:
+                    type: string
+                    readOnly: true
+                  message:
+                    type: string
+                    readOnly: true
+                required:
+                - username
+          description: ''
+  /api/auth/jwt/:
+    post:
+      operationId: CreateJSONWebToken
+      description: 'API View that receives a POST with a user''s username and password.
+
+
+        Returns a JSON Web Token that can be used for authenticated requests.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id013
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  writeOnly: true
+              required:
+              - username
+              - password
+          application/x-www-form-urlencoded:
+            schema: *id013
+          multipart/form-data:
+            schema: *id013
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  username:
+                    type: string
+                required:
+                - username
+          description: ''
+  /api/auth/jwt/refresh/:
+    post:
+      operationId: CreateRefreshJSONWebToken
+      description: 'API View that returns a refreshed token (with new expiration)
+        based on
+
+        existing token
+
+
+        If ''orig_iat'' field (original issued-at-time) is found, will first check
+
+        if it''s within expiration window, then copy it to the new token'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id014
+              properties:
+                token:
+                  type: string
+              required:
+              - token
+          application/x-www-form-urlencoded:
+            schema: *id014
+          multipart/form-data:
+            schema: *id014
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                required:
+                - token
+          description: ''
