@@ -11,13 +11,14 @@ pip install -r req.txt
 
 python manage.py runserver
 
-#thn run 
-
-http://127.0.0.1:8000/docs/
-
-Admin login credentials are 
+#thn Admin login credentials are 
 
 http://127.0.0.1:8000/admin/
 
 Username : admin
 Passowrd : admin
+
+#thn run 
+
+http://127.0.0.1:8000/docs/
+
