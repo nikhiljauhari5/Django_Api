@@ -16,7 +16,7 @@ python manage.py runserver
 http://127.0.0.1:8000/admin/
 
 Username : admin
-Passowrd : admin
+Password : admin
 
 #thn run 
 
